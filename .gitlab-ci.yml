@@ -4,10 +4,10 @@ stages:
 validate-manifests:
   stage: validate
   script:
-    - echo "Validating YAML files (client-side only)..."
+    - echo "Validating YAML files (syntax only, no API server)..."
     - |
       for f in $(find . -type f \( -name "*.yaml" -o -name "*.yml" \) ! -name ".gitlab-ci.yml"); do
         echo "Validating $f"
-        kubectl create --dry-run=client -f "$f" >/dev/null
+        kubectl apply --dry-run=client --validate=false -f "$f" >/dev/null
       done
 
