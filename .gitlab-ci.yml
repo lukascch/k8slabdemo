@@ -3,7 +3,6 @@ stages:
 
 yamllint:
   stage: validate
-  image: cytopia/yamllint:latest
   script:
     - echo "Linting YAML files..."
     - yamllint .
