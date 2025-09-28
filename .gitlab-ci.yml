@@ -1,8 +1,13 @@
 stages:
-  - test
+  - validate
 
-smoke-test:
-  stage: test
+validate-manifests:
+  stage: validate
   script:
-    - echo "✅ Hello from GitLab Runner on $(hostname)"
+    # Fail fast on errors
+    - set -e
+    # Show kubectl version (sanity check)
+    - kubectl version --client
+    # Validate all YAMLs in repo (client-side only, no cluster apply)
+    - kubectl apply --dry-run=client -f .
 
