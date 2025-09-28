@@ -6,5 +6,5 @@ yamllint:
   image: cytopia/yamllint:latest
   script:
     - echo "Linting YAML files..."
-    - yamllint -d "{extends: default, rules: {line-length: disable}}" .
+    - yamllint .
 
