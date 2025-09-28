@@ -1,0 +1,9 @@
+stages:
+  - validate
+
+yamllint:
+  stage: validate
+  script:
+    - echo "Linting YAML files..."
+    - yamllint .
+
