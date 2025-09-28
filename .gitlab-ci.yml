@@ -5,6 +5,10 @@ validate-manifests:
   stage: validate
   script:
     - echo "Validating YAML files..."
-    # Apply only .yaml/.yml files, ignore .gitlab-ci.yml
-    - find . -name "*.yaml" -o -name "*.yml" | xargs kubectl apply --dry-run=client --validate=false -f
+    # Loop through only *.yaml and *.yml files, skip .gitlab-ci.yml
+    - |
+      for f in $(find . -type f \( -name "*.yaml" -o -name "*.yml" \) ! -name ".gitlab-ci.yml"); do
+        echo "Validating $f"
+        kubectl apply --dry-run=client --validate=false -f "$f"
+      done
 
