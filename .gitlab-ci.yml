@@ -1,13 +1,10 @@
 stages:
   - validate
 
-validate-manifests:
+yamllint:
   stage: validate
+  image: cytopia/yamllint:latest
   script:
-    - echo "Validating YAML files (syntax only, no API server)..."
-    - |
-      for f in $(find . -type f \( -name "*.yaml" -o -name "*.yml" \) ! -name ".gitlab-ci.yml"); do
-        echo "Validating $f"
-        kubectl apply --dry-run=client --validate=false -f "$f" >/dev/null
-      done
+    - echo "Linting YAML files..."
+    - yamllint -d "{extends: default, rules: {line-length: disable}}" .
 
