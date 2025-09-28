@@ -1,0 +1,8 @@
+stages:
+  - test
+
+smoke-test:
+  stage: test
+  script:
+    - echo "✅ Hello from GitLab Runner on $(hostname)"
+
